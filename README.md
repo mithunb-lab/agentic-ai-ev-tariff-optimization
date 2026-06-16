@@ -2,30 +2,30 @@
 
 ## Overview
 
-This project develops an Agentic AI framework for Dynamic EV Charging Tariff Optimization using large-scale EV charging network data. The framework forecasts charging demand, predicts congestion, recommends adaptive tariffs, and continuously evaluates operational performance through a monitoring and learning system.
+This project develops an Agentic AI framework for Dynamic EV Charging Tariff Optimization using large-scale EV charging network data. The system forecasts charging demand, predicts congestion, recommends adaptive tariffs, and evaluates operational performance through a monitoring and learning agent.
 
-As EV adoption grows, static charging tariffs lead to peak-hour congestion, underutilized infrastructure during off-peak periods, and suboptimal revenue generation. This project addresses these challenges through data-driven forecasting and dynamic pricing strategies.
+As EV adoption increases, fixed charging tariffs often result in peak-hour congestion, underutilized infrastructure during off-peak periods, and suboptimal revenue generation. This project addresses these challenges through machine learning-based demand forecasting and dynamic pricing strategies.
 
 ---
 
 ## Problem Statement
 
-Traditional EV charging stations typically operate using fixed-rate pricing regardless of real-time demand and charger utilization.
+Traditional EV charging stations typically operate with fixed pricing regardless of demand and charger utilization.
 
-Key challenges include:
+This leads to:
 
-* Peak-hour congestion and long waiting times
-* Underutilization during off-peak periods
-* Revenue inefficiencies
-* Poor load balancing across charging infrastructure
+- Peak-hour congestion
+- Long customer waiting times
+- Revenue inefficiencies
+- Uneven charger utilization
 
-This project develops an AI-driven framework capable of:
+The objective of this project is to:
 
-* Forecasting charging demand
-* Predicting charger utilization
-* Detecting congestion
-* Recommending dynamic tariffs
-* Monitoring pricing effectiveness
+- Forecast charging demand
+- Predict charger utilization
+- Detect congestion
+- Recommend dynamic tariffs
+- Monitor pricing effectiveness
 
 ---
 
@@ -33,27 +33,24 @@ This project develops an AI-driven framework capable of:
 
 ### UrbanEV Charging Dataset
 
-The primary dataset contains large-scale charging infrastructure information.
+Dataset Statistics:
 
-**Dataset Statistics**
-
-* 2.12 Million charging observations
-* 247 charging zones
-* 5-minute charging intervals
-* Occupancy information
-* Charging volume data
-* Charging duration data
-* Charging price information
+- 2.12 Million charging observations
+- 247 charging zones
+- Occupancy information
+- Charging volume data
+- Charging duration data
+- Electricity pricing data
 
 ### Station Information
 
-Station-level attributes include:
+Station-level features include:
 
-* Latitude
-* Longitude
-* Number of Fast Chargers
-* Number of Slow Chargers
-* Total Charger Count
+- Latitude
+- Longitude
+- Fast charger count
+- Slow charger count
+- Total charger count
 
 ---
 
@@ -61,43 +58,43 @@ Station-level attributes include:
 
 The following preprocessing steps were performed:
 
-* Reshaped wide-format charging data into long format
-* Merged occupancy, volume, duration, and pricing datasets
-* Integrated station metadata
-* Removed missing values
-* Generated temporal features
-* Created lag-based demand features
-* Engineered rolling-window demand indicators
+- Reshaped charging datasets into a unified format
+- Merged occupancy, volume, duration, and pricing data
+- Integrated station metadata
+- Removed missing values
+- Created temporal features
+- Generated lag-based demand features
+- Engineered rolling-window features
 
 ### Engineered Features
 
 #### Temporal Features
 
-* Hour
-* Weekday
-* Month
-* Weekend Indicator
+- Hour
+- Weekday
+- Month
+- Weekend Indicator
 
 #### Demand Features
 
-* Occupancy Density
-* Utilization Rate
-* Congestion Indicator
+- Occupancy Density
+- Utilization Rate
+- Congestion Indicator
 
 #### Lag Features
 
-* Occupancy Lag (1 period)
-* Occupancy Lag (24 periods)
-* Volume Lag (1 period)
-* Volume Lag (24 periods)
-* Duration Lag (1 period)
-* Duration Lag (24 periods)
+- Occupancy Lag 1
+- Occupancy Lag 24
+- Volume Lag 1
+- Volume Lag 24
+- Duration Lag 1
+- Duration Lag 24
 
 #### Rolling Features
 
-* 24-Period Occupancy Rolling Average
-* 24-Period Volume Rolling Average
-* 24-Period Duration Rolling Average
+- 24-Period Occupancy Rolling Average
+- 24-Period Volume Rolling Average
+- 24-Period Duration Rolling Average
 
 ---
 
@@ -105,12 +102,7 @@ The following preprocessing steps were performed:
 
 ### 1. Demand Prediction Agent
 
-This agent predicts future charging demand and utilization.
-
-#### Targets
-
-* Charger Utilization Rate
-* Charging Volume
+Forecasts future charger utilization and charging demand.
 
 #### Model
 
@@ -118,21 +110,16 @@ Random Forest Regressor
 
 #### Results
 
-| Target           | Metric | Value |
-| ---------------- | ------ | ----: |
-| Utilization Rate | R²     | 0.943 |
-| Charging Volume  | R²     | 0.994 |
+| Target | Metric | Value |
+|----------|----------|----------:|
+| Utilization Rate | R² | 0.943 |
+| Charging Volume | R² | 0.994 |
 
 ---
 
 ### 2. Congestion Prediction Agent
 
-This agent identifies charging stations likely to experience congestion.
-
-#### Output
-
-* Congested
-* Non-Congested
+Identifies stations likely to experience congestion.
 
 #### Model
 
@@ -140,60 +127,60 @@ Random Forest Classifier
 
 #### Results
 
-| Metric    |  Value |
-| --------- | -----: |
-| Accuracy  | 0.9951 |
+| Metric | Value |
+|----------|----------:|
+| Accuracy | 0.9951 |
 | Precision | 0.9964 |
-| Recall    | 0.9952 |
-| F1 Score  | 0.9958 |
-| AUC       | 0.9999 |
+| Recall | 0.9952 |
+| F1 Score | 0.9958 |
+| AUC | 0.9999 |
 
 ---
 
 ### 3. Dynamic Tariff Pricing Agent
 
-This agent generates adaptive pricing recommendations based on forecasted demand.
+Generates adaptive pricing recommendations based on predicted utilization.
 
 #### Pricing Logic
 
-| Utilization Level | Action           |
-| ----------------- | ---------------- |
-| > 80%             | Surge Pricing    |
-| 30% – 80%         | Base Pricing     |
-| < 30%             | Discount Pricing |
+| Utilization Level | Action |
+|----------|----------|
+| > 80% | Surge Pricing |
+| 30% – 80% | Base Pricing |
+| < 30% | Discount Pricing |
 
 #### Objectives
 
-* Maximize Revenue
-* Reduce Congestion
-* Improve Infrastructure Utilization
-* Encourage Off-Peak Charging
+- Maximize Revenue
+- Reduce Congestion
+- Improve Infrastructure Utilization
+- Encourage Off-Peak Charging
 
 ---
 
 ### 4. Monitoring & Learning Agent
 
-The monitoring agent evaluates pricing effectiveness and operational outcomes.
+Evaluates pricing effectiveness and operational outcomes.
 
 #### Tracked Metrics
 
-* Revenue Gain
-* Customer Response Rate
-* Pricing Efficiency
-* Wait-Time Reduction
+- Revenue Gain
+- Customer Response Rate
+- Pricing Efficiency
+- Wait-Time Reduction
 
 ---
 
 ## Key Results
 
-| Metric                      |  Value |
-| --------------------------- | -----: |
-| Utilization Model R²        |  0.943 |
-| Volume Forecasting Model R² |  0.994 |
-| Congestion Detection AUC    | 0.9999 |
-| Revenue Improvement         |  3.14% |
-| Wait-Time Reduction         | 16.56% |
-| Customer Response Rate      |  0.764 |
+| Metric | Value |
+|----------|----------:|
+| Utilization Prediction R² | 0.943 |
+| Charging Volume Prediction R² | 0.994 |
+| Congestion Detection AUC | 0.9999 |
+| Revenue Improvement | 3.14% |
+| Wait-Time Reduction | 16.56% |
+| Customer Response Rate | 0.764 |
 
 ---
 
@@ -201,19 +188,19 @@ The monitoring agent evaluates pricing effectiveness and operational outcomes.
 
 ### Revenue Comparison
 
-![Revenue Comparison](revenue_comparison.png)
+![Revenue Comparison](figures/revenue_comparison.png)
 
 ### Tariff Distribution
 
-![Tariff Distribution](tariff_distribution.png)
+![Tariff Distribution](figures/tariff_distribution.png)
 
 ### Occupancy Density
 
-![Occupancy Density](occupancy_density.png)
+![Occupancy Density](figures/occupancy_density.png)
 
-### Feature Importance
+### Utilization Model Feature Importance
 
-![Feature Importance](feature_importance.png)
+![Utilization Feature Importance](figures/feature_importance.png)
 
 ---
 
@@ -221,22 +208,22 @@ The monitoring agent evaluates pricing effectiveness and operational outcomes.
 
 ### Programming
 
-* Python
+- Python
 
 ### Data Processing
 
-* Pandas
-* NumPy
+- Pandas
+- NumPy
 
 ### Machine Learning
 
-* Scikit-Learn
-* Random Forest Regressor
-* Random Forest Classifier
+- Scikit-Learn
+- Random Forest Regressor
+- Random Forest Classifier
 
 ### Visualization
 
-* Matplotlib
+- Matplotlib
 
 ---
 
@@ -246,37 +233,43 @@ The monitoring agent evaluates pricing effectiveness and operational outcomes.
 agentic-ai-ev-tariff-optimization/
 
 │
-├── notebook.ipynb
+├── notebooks/
+│   └── notebook.ipynb
+│
+├── results/
+│   ├── executive_summary.csv
+│   ├── final_model_results.csv
+│   ├── project_summary_metrics.csv
+│   ├── utilization_results.csv
+│   └── volume_results.csv
+│
+├── figures/
+│   ├── revenue_comparison.png
+│   ├── tariff_distribution.png
+│   ├── occupancy_density.png
+│   └── feature_importance.png
+│
+├── feature_importance/
+│   ├── utilization_feature_importance.csv
+│   ├── volume_feature_importance.csv
+│   └── congestion_feature_importance.csv
+│
 ├── README.md
-├── LICENSE
-│
-├── executive_summary.csv
-├── final_model_results.csv
-├── project_summary_metrics.csv
-│
-├── revenue_comparison.png
-├── tariff_distribution.png
-├── occupancy_density.png
-├── feature_importance.png
-│
-├── utilization_results.csv
-├── volume_results.csv
-├── utilization_feature_importance.csv
-├── volume_feature_importance.csv
-├── congestion_feature_importance.csv
+├── requirements.txt
+└── LICENSE
 ```
 
 ---
 
 ## Business Impact
 
-The proposed framework demonstrates how AI-driven tariff optimization can improve EV charging network performance by:
+This framework demonstrates how AI-driven dynamic pricing can improve EV charging network performance by:
 
-* Increasing charging infrastructure utilization
-* Reducing congestion during peak periods
-* Improving revenue generation
-* Encouraging off-peak charging behavior
-* Supporting scalable EV infrastructure management
+- Increasing charger utilization
+- Reducing peak-hour congestion
+- Improving revenue generation
+- Encouraging off-peak charging behavior
+- Supporting scalable EV infrastructure management
 
 ---
 
@@ -284,19 +277,19 @@ The proposed framework demonstrates how AI-driven tariff optimization can improv
 
 Potential future extensions include:
 
-* Reinforcement Learning based tariff optimization
-* Real-time pricing deployment
-* Demand elasticity modeling
-* Grid-aware charging optimization
-* Multi-agent coordination across charging zones
+- Reinforcement Learning based pricing
+- Real-time tariff deployment
+- Demand elasticity modeling
+- Grid-aware charging optimization
+- Multi-agent coordination across charging zones
 
 ---
 
 ## Author
 
-**B. Mithun**
+**B MITHUN**
 
-Mechanical Engineering
+Mechanical Engineering  
 Indian Institute of Technology Roorkee
 
 Self Project – Agentic AI Framework for Dynamic EV Charging Tariff Optimization
