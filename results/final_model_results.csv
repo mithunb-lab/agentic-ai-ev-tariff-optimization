@@ -1,0 +1,4 @@
+﻿"model,target,metric,value"
+"rf_util,utilization_rate,R2,0.9425851605589332"
+"rf_volume,volume,R2,0.9941614195128651"
+"rf_congestion,is_congested,AUC,0.9998666645402469"
